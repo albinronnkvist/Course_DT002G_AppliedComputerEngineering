@@ -1,2 +1,5 @@
-# Course_DT002G_AppliedComputerEngineering
-Computer Engineering BA (B), Applied Computer Engineering, 7.5 credits
+# DT002G - Applied Computer Engineering
+
+This course focused on gaining experience and confidence in developing practical applications and functionality within computer engineering. A key aspect was also training in following a structured project model, an essential skill for future professional roles. Throughout the course, I worked on various stages of the software development process, including project proposals, Software Requirement Specifications (SRS), implementation, documentation, testing, and deployment.
+
+For the final project, I am developing an Infrastructure as Code (IaC) template suite to automate the provisioning of secure, credential-free workload identities in Microsoft Azure. Utilizing Pulumi and C# .NET, this project addresses the challenges of manual configuration and long-lived credentials by implementing Managed Identities for internal workloads and Federated Identity Credentials for external workloads. The solution enhances operational efficiency, security, and scalability within cloud environments. __The project is still ongoing in a private GitLab group, but will be uploaded here in the future__
