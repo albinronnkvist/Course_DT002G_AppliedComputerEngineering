@@ -1,5 +1,19 @@
 # DT002G - Applied Computer Engineering
 
-This course focused on gaining experience and confidence in developing practical applications and functionality within computer engineering. A key aspect was also training in following a structured project model, an essential skill for future professional roles. Throughout the course, I worked on various stages of the software development process, including project proposals, Software Requirement Specifications (SRS), implementation, documentation, testing, and deployment.
+This course provided hands-on experience in developing practical applications within the field of computer engineering. 
+Over the duration of the course, I engaged in multiple phases of the software development lifecycle, including project proposals, Software Requirement Specifications (SRS), implementation, documentation, testing, and deployment.
 
-For the final project, I am developing an Infrastructure as Code (IaC) template suite to automate the provisioning of secure, credential-free workload identities in Microsoft Azure. Utilizing Pulumi and C# .NET, this project addresses the challenges of manual configuration and long-lived credentials by implementing Managed Identities for internal workloads and Federated Identity Credentials for external workloads. The solution enhances operational efficiency, security, and scalability within cloud environments. __The project is still ongoing in a private GitLab group, but will be uploaded here in the future__
+## Final Project – IAM Template Suite
+
+For the final project, I collaborated with [Piran Amedi](https://github.com/amedipiran) to develop an IAM template suite designed to automate the provisioning of secure, credential-free workload identities in Microsoft Entra ID and Azure. 
+Built using Pulumi and C# .NET, the suite addresses common challenges around manual configurations and long-lived static credentials.
+
+### Try it out
+
+Initially developed in a private GitLab repository, the project has now been relocated here for demonstration and sharing purposes. The template suite is available in the [IamTemplateSuite folder](./IamTemplateSuite) and can be downloaded from [NuGet](https://www.nuget.org/packages/Hoolit.Templates.IamTemplateSuite). 
+
+### Documentation
+
+More details on the design, implementation, and outcomes can be found in the [final report](./FinalReport.pdf) and [presentation slides](./Presentation.pdf).
+The [SRS](./SRS.pdf) is also available, which provided the foundation for the project.
+
