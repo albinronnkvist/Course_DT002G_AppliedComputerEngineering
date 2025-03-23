@@ -1,0 +1,24 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Config", "Config", "{B152BE5F-3037-4CBA-A224-6DA1D2446656}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+		Directory.Build.props = Directory.Build.props
+		Directory.Packages.props = Directory.Packages.props
+		nuget.config = nuget.config
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TOrgName.TPlatformPulumiRepositoryName.Core", "TOrgName.TPlatformPulumiRepositoryName.Core\TOrgName.TPlatformPulumiRepositoryName.Core.csproj", "{F99FE768-F0FB-4E55-B7BD-7989C179845E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F99FE768-F0FB-4E55-B7BD-7989C179845E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F99FE768-F0FB-4E55-B7BD-7989C179845E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F99FE768-F0FB-4E55-B7BD-7989C179845E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F99FE768-F0FB-4E55-B7BD-7989C179845E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

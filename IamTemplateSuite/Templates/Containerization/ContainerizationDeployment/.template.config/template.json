@@ -1,0 +1,133 @@
+{
+  "$schema": "http://json.schemastore.org/template",
+  "author": "Hoolit",
+  "classifications": ["Console", "Pulumi"],
+  "identity": "Hoolit.ContainerizationDeployment",
+  "name": "Containerization Deployment",
+  "shortName": "containerization-deployment",
+  "tags": {
+    "language": "C#",
+    "type": "project"
+  },
+  "preferNameDirectory": false,
+  "symbols": {
+    "DefaultFalse": {
+      "type": "parameter",
+      "datatype": "bool",
+      "defaultValue": "false",
+      "description": "Include template development configuration"
+    },
+    
+    "TOrgName": {
+      "type": "parameter",
+      "datatype": "string",
+      "description": "The organization name (e.g., Acme)",
+      "replaces": "TOrgName",
+      "fileRename": "TOrgName",
+      "isRequired": true
+    },
+    "TOrgGitLabPath": {
+      "type": "parameter",
+      "datatype": "string",
+      "description": "The GitLab group path for the organization (e.g., acme-group)",
+      "replaces": "TOrgGitLabPath",
+      "isRequired": true
+    },
+    "TOrgPackageSourceKey": {
+      "type": "parameter",
+      "datatype": "string",
+      "description": "The key name for the private Group NuGet feed (e.g., acme.com)",
+      "replaces": "TOrgPackageSourceKey",
+      "isRequired": true
+    },
+    "TOrgPackageSourceValue": {
+      "type": "parameter",
+      "datatype": "string",
+      "description": "The URL to the private Group NuGet feed (e.g., https://gitlab.com/api/v4/groups/111111111/-/packages/nuget/index.json)",
+      "replaces": "TOrgPackageSourceValue",
+      "fileRename": "TOrgPackageSourceValue",
+      "isRequired": true
+    },
+
+    "TPlatformPulumiRepositoryName": {
+      "type": "parameter",
+      "datatype": "string",
+      "defaultValue": "PlatformPulumi",
+      "description": "The repository name for the Platform Pulumi project in pascal case (e.g., PlatformPulumi)",
+      "replaces": "TPlatformPulumiRepositoryName",
+      "fileRename": "TPlatformPulumiRepositoryName"
+    },
+    "TPlatformPulumiAzureRepositoryName": {
+      "type": "parameter",
+      "datatype": "string",
+      "defaultValue": "PlatformPulumiAzure",
+      "description": "The repository name for the Platform Pulumi Azure project in pascal case (e.g., PlatformPulumiAzure)",
+      "replaces": "TPlatformPulumiAzureRepositoryName",
+      "fileRename": "TPlatformPulumiAzureRepositoryName"
+    },
+
+    "TIamAzureRepositoryName": {
+      "type": "parameter",
+      "datatype": "string",
+      "defaultValue": "IamAzure",
+      "description": "The repository name for IAM Azure project in pascal case (e.g., IamAzure)",
+      "replaces": "TIamAzureRepositoryName",
+      "fileRename": "TIamAzureRepositoryName"
+    },
+    "TContainerizationRepositoryName": {
+      "type": "parameter",
+      "datatype": "string",
+      "defaultValue": "Containerization",
+      "description": "The repository name for Containerization project in pascal case (e.g., Containerization)",
+      "replaces": "TContainerizationRepositoryName",
+      "fileRename": "TContainerizationRepositoryName"
+    },
+    "TMicroserviceRepositoryName": {
+      "type": "parameter",
+      "datatype": "string",
+      "defaultValue": "Microservice",
+      "description": "The repository name for Microservice project in pascal case (e.g., Microservice)",
+      "replaces": "TMicroserviceRepositoryName",
+      "fileRename": "TMicroserviceRepositoryName"
+    },
+    "TMicroserviceApplicationClientId": {
+      "type": "parameter",
+      "datatype": "string",
+      "description": "The Application Client Id for the Microservice project which also includes the ContainerizationDeployment project (e.g., 666152a8-7ce4-4199-80cf-57edf0adfad8)",
+      "replaces": "TMicroserviceApplicationClientId",
+      "fileRename": "TMicroserviceApplicationClientId",
+      "isRequired": true
+    },
+
+    "TContainerizationDeploymentRepositoryName": {
+      "type": "parameter",
+      "datatype": "string",
+      "defaultValue": "ContainerizationDeployment",
+      "description": "The repository name for ContainerizationDeployment project in pascal cas (e.g., ContainerizationDeployment)",
+      "fileRename": "TContainerizationDeploymentRepositoryName",
+      "replaces": "TContainerizationDeploymentRepositoryName"
+    },
+    
+    "TTenantId": {
+      "type": "parameter",
+      "datatype": "string",
+      "description": "The TenantId (eg., ec03e6c4-4895-4ca2-a6a4-e9dfca42d88a)",
+      "replaces": "TTenantId",
+      "isRequired": true
+    },
+    "TSubscriptionId": {
+      "type": "parameter",
+      "datatype": "string",
+      "description": "The SubscriptionId (e.g., 699ab7ed-b25a-43c9-8bb9-f026a4c7bc47/)",
+      "replaces": "TSubscriptionId",
+      "isRequired": true
+    },
+    "TLocation": {
+      "type": "parameter",
+      "datatype": "string",
+      "description": "The Location (e.g., swedencentral/)",
+      "replaces": "TLocation",
+      "isRequired": true
+    }
+  }
+}

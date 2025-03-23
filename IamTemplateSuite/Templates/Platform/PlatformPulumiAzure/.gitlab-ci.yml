@@ -1,0 +1,52 @@
+variables:
+  NUGET_OUTPUT_PATH: "nupkg"
+  SOLUTION_PATH: "Source/TPlatformPulumiAzureRepositoryName.sln"
+  NUGET_SOURCE_GROUP: "TOrgPackageSourceValue"
+  NUGET_SOURCE_PROJECT: "TProjectPackageSourceValue"
+  NUGET_SOURCE_NAME_GROUP: "TOrgPackageSourceKey"
+  NUGET_SOURCE_NAME_PROJECT: "TPlatformPulumiAzureRepositoryGitLabPath"
+  GIT_DEPTH: 0
+  CORE_PROJECT_NAME: "TOrgName.TPlatformPulumiAzureRepositoryName.Core"
+
+default:
+  image: mcr.microsoft.com/dotnet/sdk:9.0
+
+stages:
+  - build
+  - test
+  - publish
+
+build:
+  stage: build
+  script:
+    - dotnet nuget add source "$NUGET_SOURCE_GROUP" --name "$NUGET_SOURCE_NAME_GROUP" --username "gitlab-ci-token" --password "$CI_JOB_TOKEN" --store-password-in-clear-text
+    - dotnet restore "$SOLUTION_PATH"
+    - dotnet build "$SOLUTION_PATH" --no-restore -c Release
+  artifacts:
+    paths:
+      - Source/**/bin/Release
+      - Source/**/$NUGET_OUTPUT_PATH/*.nupkg
+    expire_in: 1 day
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH || $CI_PIPELINE_SOURCE == "merge_request_event"
+
+test:
+  stage: test
+  dependencies:
+    - build
+  script:
+    - dotnet test "$SOLUTION_PATH" --no-build -c Release
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH || $CI_PIPELINE_SOURCE == "merge_request_event"
+
+publish_core:
+  stage: publish
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+      when: manual
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+      when: on_success
+  script:
+    - dotnet nuget add source "$NUGET_SOURCE_PROJECT" --name "$NUGET_SOURCE_NAME_PROJECT" --username "gitlab-ci-token" --password "$CI_JOB_TOKEN" --store-password-in-clear-text
+    - dotnet nuget push "Source/$CORE_PROJECT_NAME/$NUGET_OUTPUT_PATH/$CORE_PROJECT_NAME.*.nupkg" --source "$NUGET_SOURCE_NAME_PROJECT" --api-key "$CI_JOB_TOKEN" 
+  

@@ -1,0 +1,4 @@
+config:
+  azure-native:tenantId: "TTenantId"
+  azure-native:subscriptionId: "TSubscriptionId"
+  azure-native:location: "TLocation"

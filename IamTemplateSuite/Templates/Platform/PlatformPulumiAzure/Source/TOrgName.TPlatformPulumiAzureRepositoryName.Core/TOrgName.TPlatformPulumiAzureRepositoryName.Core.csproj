@@ -1,0 +1,44 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <ManagePackageVersionsCentrally>false</ManagePackageVersionsCentrally>
+        <ImportPackagesProps>false</ImportPackagesProps>
+        <ImportDirectoryBuildProps>false</ImportDirectoryBuildProps>
+        
+        <TargetFramework>net9.0</TargetFramework>
+        <PackageId>TOrgName.TPlatformPulumiAzureRepositoryName.Core</PackageId>
+        
+        <Version>$(GitVersion_FullSemVer)</Version>
+        <Authors>TOrgName</Authors>
+        <Company>TOrgName</Company>
+        <Description>This package extends the PlatformPulumi package with Azure-specific conventions and components.</Description>
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
+        <PackageOutputPath>./nupkg</PackageOutputPath>
+        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+        <PackageSourceUrl>TProjectPackageSourceValue</PackageSourceUrl>
+        <RepositoryType>git</RepositoryType>
+
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+        <CodeAnalysisTreatWarningsAsErrors>true</CodeAnalysisTreatWarningsAsErrors>
+        <AnalysisLevel>latest</AnalysisLevel>
+        <AnalysisMode>All</AnalysisMode>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Ardalis.SmartEnum" Version="8.2.0" />
+        <PackageReference Include="GitVersion.MsBuild" Version="6.1.0">
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+        <PackageReference Include="Pulumi.AzureNative" Version="2.87.0" />
+        <PackageReference Include="TOrgName.TPlatformPulumiRepositoryName.Core" Version="*-*" />
+    </ItemGroup>
+    
+    <!--#if DefaultFalse-->
+    <PropertyGroup>
+        <PackageOutputPath>../../../../../LocalDev/LocalNuGetFeed</PackageOutputPath>
+    </PropertyGroup>
+    <!--#endif -->
+</Project>

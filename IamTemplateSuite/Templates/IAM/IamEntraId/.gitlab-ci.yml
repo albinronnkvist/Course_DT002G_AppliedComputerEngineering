@@ -1,0 +1,111 @@
+variables:
+  DOTNET_VERSION: "9.0"
+  SOLUTION_PATH: "Source/TIamEntraIdRepositoryName.sln"
+  NUGET_SOURCE_GROUP: "TOrgPackageSourceValue"
+  NUGET_SOURCE_PROJECT: "TProjectPackageSourceValue"
+  NUGET_SOURCE_NAME_GROUP: "TOrgPackageSourceKey"
+  NUGET_SOURCE_NAME_PROJECT: "TIamEntraIdRepositoryGitLabPath"
+  NUGET_OUTPUT_PATH: "nupkg"
+  GIT_DEPTH: 0
+  ARM_USE_OIDC: "true"
+  ARM_OIDC_TOKEN: "$GITLAB_OIDC_TOKEN"
+  ARM_CLIENT_ID: "1bb63ef4-1039-4f78-9893-f9689aeb3137" # TODO: replace this with Client ID printed by initializer
+  PULUMI_PROJECT_NAME: "TOrgName.TIamEntraIdRepositoryName.Pulumi"
+  PULUMI_CONTRACT_PROJECT_NAME: "TOrgName.TIamEntraIdRepositoryName.Pulumi.Contract"
+  STACK_MAIN: "main"
+
+default:
+  image: mcr.microsoft.com/dotnet/sdk:${DOTNET_VERSION}
+
+stages:
+  - build
+  - test
+  - pulumi
+  - publish
+
+build:
+  stage: build
+  script:
+    - dotnet nuget add source $NUGET_SOURCE_GROUP --name $NUGET_SOURCE_NAME_GROUP --username "gitlab-ci-token" --password $CI_JOB_TOKEN --store-password-in-clear-text
+    - dotnet restore $SOLUTION_PATH
+    - dotnet build $SOLUTION_PATH --no-restore -c Release
+  artifacts:
+    paths:
+      - Source/**/bin/Release
+      - Source/**/$NUGET_OUTPUT_PATH/*.nupkg
+    expire_in: 1 day
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH || $CI_PIPELINE_SOURCE == "merge_request_event"
+
+test:
+  stage: test
+  dependencies:
+    - build
+  script:
+    - dotnet test $SOLUTION_PATH --no-build -c Release
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH || $CI_PIPELINE_SOURCE == "merge_request_event"
+
+pulumi_preview:
+  stage: pulumi
+  image: 
+    name: pulumi/pulumi-dotnet-${DOTNET_VERSION}
+    entrypoint: [""]
+  id_tokens:
+    GITLAB_OIDC_TOKEN:
+      aud: api://AzureADTokenExchange
+  dependencies:
+    - build
+  script:
+    - apt update && apt install -y curl
+    - curl -sL https://aka.ms/InstallAzureCLIDeb | bash
+    - dotnet nuget add source $NUGET_SOURCE_GROUP --name $NUGET_SOURCE_NAME_GROUP --username "gitlab-ci-token" --password $CI_JOB_TOKEN --store-password-in-clear-text
+    - cd Source/$PULUMI_PROJECT_NAME
+    - pulumi preview -s $STACK_MAIN
+  artifacts:
+    paths:
+      - Source/$PULUMI_PROJECT_NAME/bin/Release/net${DOTNET_VERSION}/
+    expire_in: 1 day
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+      
+pulumi_apply:
+  stage: pulumi
+  image:
+    name: pulumi/pulumi-dotnet-${DOTNET_VERSION}
+    entrypoint: [""]
+  id_tokens:
+    GITLAB_OIDC_TOKEN:
+      aud: api://AzureADTokenExchange
+  dependencies:
+    - build
+  script:
+    - apt update && apt install -y curl
+    - curl -sL https://aka.ms/InstallAzureCLIDeb | bash
+    - dotnet nuget add source $NUGET_SOURCE_GROUP --name $NUGET_SOURCE_NAME_GROUP --username "gitlab-ci-token" --password $CI_JOB_TOKEN --store-password-in-clear-text
+    - cd Source/$PULUMI_PROJECT_NAME
+    - pulumi up -r -f -s $STACK_MAIN -y
+  artifacts:
+    paths:
+      - Source/$PULUMI_PROJECT_NAME/bin/Release/net${DOTNET_VERSION}/
+    expire_in: 1 day
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+
+publish_contract:
+  stage: publish
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+      changes:
+        - Source/$PULUMI_CONTRACT_PROJECT_NAME/**/*
+        - Source/NuGet.Config
+      when: manual
+      allow_failure: true
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+      changes:
+        - Source/$PULUMI_CONTRACT_PROJECT_NAME/**/*
+        - Source/NuGet.Config
+      when: on_success
+  script:
+    - dotnet nuget add source $NUGET_SOURCE_PROJECT --name $NUGET_SOURCE_NAME_PROJECT --username "gitlab-ci-token" --password $CI_JOB_TOKEN --store-password-in-clear-text
+    - dotnet nuget push Source/$PULUMI_CONTRACT_PROJECT_NAME/$NUGET_OUTPUT_PATH/$PULUMI_CONTRACT_PROJECT_NAME.*.nupkg --source $NUGET_SOURCE_NAME_PROJECT --api-key $CI_JOB_TOKEN

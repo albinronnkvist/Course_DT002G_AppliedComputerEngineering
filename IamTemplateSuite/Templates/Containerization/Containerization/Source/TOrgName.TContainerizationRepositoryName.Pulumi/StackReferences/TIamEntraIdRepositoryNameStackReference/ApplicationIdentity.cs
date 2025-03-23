@@ -1,0 +1,3 @@
+namespace TOrgName.TContainerizationRepositoryName.Pulumi.StackReferences.TIamEntraIdRepositoryNameStackReference;
+
+internal sealed record ApplicationIdentity(string ApplicationClientId, string ServicePrincipalObjectId);

@@ -1,0 +1,10 @@
+name: TMicroserviceInfrastructureRepositoryName
+description: Infrastructure provisioning for TMicroserviceRepositoryName
+runtime:
+  name: dotnet
+  options:
+    binary: bin/Release/net9.0/TOrgName.TMicroserviceInfrastructureRepositoryName.Pulumi.dll
+config:
+  pulumi:autonaming:
+    value:
+      pattern: ${project}-${stack}-${name}-${hex(6)}

@@ -1,0 +1,162 @@
+{
+  "$schema": "http://json.schemastore.org/template",
+  "author": "Hoolit",
+  "classifications": ["Console", "Pulumi"],
+  "identity": "Hoolit.IamEntraId",
+  "name": "IAM Entra ID",
+  "shortName": "iam-entra-id",
+  "tags": {
+    "language": "C#",
+    "type": "project"
+  },
+  "preferNameDirectory": false,
+  "symbols": {
+    "DefaultFalse": {
+      "type": "parameter",
+      "datatype": "bool",
+      "defaultValue": "false",
+      "description": "Include template development configuration"
+    },
+    
+    "TOrgName": {
+      "type": "parameter",
+      "datatype": "string",
+      "description": "The organization name (e.g., Acme)",
+      "replaces": "TOrgName",
+      "fileRename": "TOrgName",
+      "isRequired": true
+    },
+    "TOrgGitLabPath": {
+      "type": "parameter",
+      "datatype": "string",
+      "description": "The GitLab group path for the organization (e.g., acme-group)",
+      "replaces": "TOrgGitLabPath",
+      "isRequired": true
+    },
+    "TOrgPackageSourceKey": {
+      "type": "parameter",
+      "datatype": "string",
+      "description": "The key name for the private Group NuGet feed (e.g., acme.com)",
+      "replaces": "TOrgPackageSourceKey",
+      "isRequired": true
+    },
+    "TOrgPackageSourceValue": {
+      "type": "parameter",
+      "datatype": "string",
+      "description": "The URL to the private Group NuGet feed (e.g., https://gitlab.com/api/v4/groups/111111111/-/packages/nuget/index.json)",
+      "replaces": "TOrgPackageSourceValue",
+      "fileRename": "TOrgPackageSourceValue",
+      "isRequired": true
+    },
+    
+    "TPlatformPulumiRepositoryName": {
+      "type": "parameter",
+      "datatype": "string",
+      "defaultValue": "PlatformPulumi",
+      "description": "The repository name for the Platform Pulumi project in pascal case (e.g., PlatformPulumi)",
+      "replaces": "TPlatformPulumiRepositoryName",
+      "fileRename": "TPlatformPulumiRepositoryName"
+    },
+    "TPlatformPulumiAzureRepositoryName": {
+      "type": "parameter",
+      "datatype": "string",
+      "defaultValue": "PlatformPulumiAzure",
+      "description": "The repository name for the Platform Pulumi Azure project in pascal case (e.g., PlatformPulumiAzure)",
+      "replaces": "TPlatformPulumiAzureRepositoryName",
+      "fileRename": "TPlatformPulumiAzureRepositoryName"
+    },
+    
+    "TIamEntraIdRepositoryName": {
+      "type": "parameter",
+      "datatype": "string",
+      "defaultValue": "IamEntraId",
+      "description": "The repository name for the IAM infrastructure in pascal case (e.g., IamEntraId)",
+      "replaces": "TIamEntraIdRepositoryName",
+      "fileRename": "TIamEntraIdRepositoryName"
+    },
+    "TIamEntraIdRepositoryGitLabPath": {
+      "type": "parameter",
+      "datatype": "string",
+      "defaultValue": "iam-entra-id",
+      "description": "The GitLab path for the repository (e.g., iam-entra-id)",
+      "replaces": "TIamEntraIdRepositoryGitLabPath"
+    },
+    "TProjectPackageSourceValue": {
+      "type": "parameter",
+      "datatype": "string",
+      "description": "The URL to the private Project NuGet feed (e.g., https://gitlab.com/api/v4/projects/111111113/-/packages/nuget/index.json)",
+      "replaces": "TProjectPackageSourceValue",
+      "isRequired": true
+    },
+    
+    "TDomainName": {
+      "type": "parameter",
+      "datatype": "string",
+      "description": "The domain name (e.g., acme.onmicrosoft.com)",
+      "replaces": "TDomainName",
+      "isRequired": true
+    },
+    
+    "TIamAzureRepositoryName": {
+      "type": "parameter",
+      "datatype": "string",
+      "defaultValue": "IamAzure",
+      "description": "The repository name for IAM Azure project in pascal case (e.g., IamAzure)",
+      "replaces": "TIamAzureRepositoryName",
+      "fileRename": "TIamAzureRepositoryName"
+    },
+    "TIamAzureRepositoryGitLabPath": {
+      "type": "parameter",
+      "datatype": "string",
+      "defaultValue": "iam-azure",
+      "description": "The GitLab path for IAM Azure repository (e.g., iam-azure)",
+      "replaces": "TIamAzureRepositoryGitLabPath"
+    },
+    
+    "TContainerizationRepositoryName": {
+      "type": "parameter",
+      "datatype": "string",
+      "defaultValue": "Containerization",
+      "description": "The repository name for Containerization project in pascal case (e.g., Containerization)",
+      "replaces": "TContainerizationRepositoryName",
+      "fileRename": "TContainerizationRepositoryName"
+    },
+    "TContainerizationRepositoryGitLabPath": {
+      "type": "parameter",
+      "datatype": "string",
+      "defaultValue": "containerization",
+      "description": "The GitLab path for Containerization repository (e.g., containerization)",
+      "replaces": "TContainerizationRepositoryGitLabPath"
+    },
+    "TContainerizationDeploymentRepositoryGitLabPath": {
+      "type": "parameter",
+      "datatype": "string",
+      "defaultValue": "containerization-deployment",
+      "description": "The GitLab path for ContainerizationDeployment repository (e.g., containerization-deployment)",
+      "replaces": "TContainerizationDeploymentRepositoryGitLabPath"
+    },
+    
+    "TMicroserviceRepositoryName": {
+      "type": "parameter",
+      "datatype": "string",
+      "defaultValue": "Microservice",
+      "description": "The repository name for Microservice project in pascal case (e.g., Microservice)",
+      "replaces": "TMicroserviceRepositoryName",
+      "fileRename": "TMicroserviceRepositoryName"
+    },
+    "TMicroserviceRepositoryGitLabPath": {
+      "type": "parameter",
+      "datatype": "string",
+      "defaultValue": "containerization",
+      "description": "The GitLab path for Microservice repository (e.g., microservice)",
+      "replaces": "TMicroserviceRepositoryGitLabPath"
+    },
+    "TMicroserviceInfrastructureRepositoryGitLabPath": {
+      "type": "parameter",
+      "datatype": "string",
+      "defaultValue": "microservice-infrastructure",
+      "description": "The GitLab path for MicroserviceInfrastructure repository (e.g., microservice-infrastructure)",
+      "replaces": "TMicroserviceInfrastructureRepositoryGitLabPath"
+    }
+  }
+}

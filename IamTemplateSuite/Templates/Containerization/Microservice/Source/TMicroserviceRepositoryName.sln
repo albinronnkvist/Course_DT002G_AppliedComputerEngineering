@@ -1,0 +1,36 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TOrgName.TMicroserviceRepositoryName.Core", "TOrgName.TMicroserviceRepositoryName.Core\TOrgName.TMicroserviceRepositoryName.Core.csproj", "{46AB17FA-295F-4369-AB60-B6DE23BB57B8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Config", "Config", "{B152BE5F-3037-4CBA-A224-6DA1D2446656}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+		Directory.Build.props = Directory.Build.props
+		Directory.Packages.props = Directory.Packages.props
+		nuget.config = nuget.config
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TOrgName.TMicroserviceRepositoryName.Core.Test", "TOrgName.TMicroserviceRepositoryName.Core.Test\TOrgName.TMicroserviceRepositoryName.Core.Test.csproj", "{99C5E729-74E6-40E0-9F15-39D6CC72388B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TOrgName.TMicroserviceRepositoryName.Api", "TOrgName.TMicroserviceRepositoryName.Api\TOrgName.TMicroserviceRepositoryName.Api.csproj", "{CA3AF95F-B5E7-4D4E-B315-417BED87F2A8}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{46AB17FA-295F-4369-AB60-B6DE23BB57B8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{46AB17FA-295F-4369-AB60-B6DE23BB57B8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{46AB17FA-295F-4369-AB60-B6DE23BB57B8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{46AB17FA-295F-4369-AB60-B6DE23BB57B8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{99C5E729-74E6-40E0-9F15-39D6CC72388B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{99C5E729-74E6-40E0-9F15-39D6CC72388B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{99C5E729-74E6-40E0-9F15-39D6CC72388B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{99C5E729-74E6-40E0-9F15-39D6CC72388B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CA3AF95F-B5E7-4D4E-B315-417BED87F2A8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CA3AF95F-B5E7-4D4E-B315-417BED87F2A8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CA3AF95F-B5E7-4D4E-B315-417BED87F2A8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CA3AF95F-B5E7-4D4E-B315-417BED87F2A8}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

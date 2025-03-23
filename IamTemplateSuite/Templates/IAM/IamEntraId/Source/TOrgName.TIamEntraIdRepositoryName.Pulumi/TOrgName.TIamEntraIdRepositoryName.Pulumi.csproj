@@ -1,0 +1,23 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <PackageId>TOrgName.TIamEntraIdRepositoryName.Pulumi</PackageId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Pulumi.AzureAD" />
+    <PackageReference Include="Pulumi.Command" />
+    <PackageReference Include="TOrgName.TPlatformPulumiAzureRepositoryName.Core" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <InternalsVisibleTo Include="TOrgName.TIamEntraIdRepositoryName.Pulumi.Test" />
+    <InternalsVisibleTo Include="TOrgName.TIamEntraIdRepositoryName.Pulumi.Initializer" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\TOrgName.TIamEntraIdRepositoryName.Pulumi.Contract\TOrgName.TIamEntraIdRepositoryName.Pulumi.Contract.csproj" />
+  </ItemGroup>
+  
+</Project>

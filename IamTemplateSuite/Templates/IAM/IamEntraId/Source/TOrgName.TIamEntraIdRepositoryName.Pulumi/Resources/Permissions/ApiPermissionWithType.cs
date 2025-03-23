@@ -1,0 +1,3 @@
+namespace TOrgName.TIamEntraIdRepositoryName.Pulumi.Resources.Permissions;
+
+internal record ApiPermissionWithType(MicrosoftGraphApiPermission Permission, ApiPermissionType PermissionType);

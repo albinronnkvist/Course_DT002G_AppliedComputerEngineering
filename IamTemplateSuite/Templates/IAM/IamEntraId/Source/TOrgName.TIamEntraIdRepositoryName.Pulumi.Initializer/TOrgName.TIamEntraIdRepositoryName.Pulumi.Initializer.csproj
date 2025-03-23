@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <OutputType>Exe</OutputType>
+        <PackageId>TOrgName.TIamEntraIdRepositoryName.Pulumi.Initializer</PackageId>
+    </PropertyGroup>
+    
+    <ItemGroup>
+        <PackageReference Include="Pulumi.Automation" />
+    </ItemGroup>
+    
+    <ItemGroup>
+        <InternalsVisibleTo Include="TOrgName.TIamEntraIdRepositoryName.Pulumi.Test" />
+    </ItemGroup>
+    
+    <ItemGroup>
+        <ProjectReference Include="..\TOrgName.TIamEntraIdRepositoryName.Pulumi\TOrgName.TIamEntraIdRepositoryName.Pulumi.csproj" />
+    </ItemGroup>
+
+</Project>

@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <PackageId>TOrgName.TIamEntraIdRepositoryName.Pulumi.Test</PackageId>
+
+        <IsPackable>false</IsPackable>
+        <IsTestProject>true</IsTestProject>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="coverlet.collector" />
+        <PackageReference Include="Microsoft.NET.Test.Sdk" />
+        <PackageReference Include="NSubstitute" />
+        <PackageReference Include="Pulumi.AzureAD" />
+        <PackageReference Include="Shouldly" />
+        <PackageReference Include="TestCentric.Metadata" />
+        <PackageReference Include="xunit" />
+        <PackageReference Include="xunit.runner.visualstudio" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\TOrgName.TIamEntraIdRepositoryName.Pulumi\TOrgName.TIamEntraIdRepositoryName.Pulumi.csproj" />
+    </ItemGroup>
+
+</Project>

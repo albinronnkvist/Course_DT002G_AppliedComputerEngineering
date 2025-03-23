@@ -1,0 +1,10 @@
+name: TIamAzureRepositoryName
+description: Provisions Microsoft Azure IAM infrastructure
+runtime:
+  name: dotnet
+  options:
+    binary: bin/Release/net9.0/TOrgName.TIamAzureRepositoryName.Pulumi.dll
+config:
+  pulumi:autonaming:
+    value:
+      pattern: ${project}-${stack}-${name}-${hex(6)}

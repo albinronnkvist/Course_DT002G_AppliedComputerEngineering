@@ -1,0 +1,6 @@
+config:
+  azure-native:tenantId: "TTenantId"
+  azure-native:subscriptionId: "TSubscriptionId"
+  azure-native:location: "TLocation"
+  imageTagApi: "a6267ba05077269aa65d50d16991ec87ed3157ed" #TODO: Replace with own imageTagApi
+  dotnetEnvironment: "Development"

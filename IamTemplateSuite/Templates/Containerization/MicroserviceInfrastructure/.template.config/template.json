@@ -1,0 +1,148 @@
+{
+  "$schema": "http://json.schemastore.org/template",
+  "author": "Hoolit",
+  "classifications": ["Console", "Pulumi"],
+  "identity": "Hoolit.MicroserviceInfrastructure",
+  "name": "MicroserviceInfrastructure",
+  "shortName": "microservice-infrastructure",
+  "tags": {
+    "language": "C#",
+    "type": "project"
+  },
+  "preferNameDirectory": false,
+  "symbols": {
+    "DefaultFalse": {
+      "type": "parameter",
+      "datatype": "bool",
+      "defaultValue": "false",
+      "description": "Include template development configuration"
+    },
+    
+    "TOrgName": {
+      "type": "parameter",
+      "datatype": "string",
+      "description": "The organization name (e.g., Acme)",
+      "replaces": "TOrgName",
+      "fileRename": "TOrgName",
+      "isRequired": true
+    },
+    "TOrgGitLabPath": {
+      "type": "parameter",
+      "datatype": "string",
+      "description": "The GitLab group path for the organization (e.g., acme-group)",
+      "replaces": "TOrgGitLabPath",
+      "isRequired": true
+    },
+    "TOrgPackageSourceKey": {
+      "type": "parameter",
+      "datatype": "string",
+      "description": "The key name for the private Group NuGet feed (e.g., acme.com)",
+      "replaces": "TOrgPackageSourceKey",
+      "isRequired": true
+    },
+    "TOrgPackageSourceValue": {
+      "type": "parameter",
+      "datatype": "string",
+      "description": "The URL to the private Group NuGet feed (e.g., https://gitlab.com/api/v4/groups/111111111/-/packages/nuget/index.json)",
+      "replaces": "TOrgPackageSourceValue",
+      "fileRename": "TOrgPackageSourceValue",
+      "isRequired": true
+    },
+
+    "TPlatformPulumiRepositoryName": {
+      "type": "parameter",
+      "datatype": "string",
+      "defaultValue": "PlatformPulumi",
+      "description": "The repository name for the Platform Pulumi project in pascal case (e.g., PlatformPulumi)",
+      "replaces": "TPlatformPulumiRepositoryName",
+      "fileRename": "TPlatformPulumiRepositoryName"
+    },
+    "TPlatformPulumiAzureRepositoryName": {
+      "type": "parameter",
+      "datatype": "string",
+      "defaultValue": "PlatformPulumiAzure",
+      "description": "The repository name for the Platform Pulumi Azure project in pascal case (e.g., PlatformPulumiAzure)",
+      "replaces": "TPlatformPulumiAzureRepositoryName",
+      "fileRename": "TPlatformPulumiAzureRepositoryName"
+    },
+
+    "TIamEntraIdRepositoryName": {
+      "type": "parameter",
+      "datatype": "string",
+      "defaultValue": "IamEntraId",
+      "description": "The repository name for the IAM infrastructure in pascal case (e.g., IamEntraId)",
+      "replaces": "TIamEntraIdRepositoryName",
+      "fileRename": "TIamEntraIdRepositoryName"
+    },
+    "TIamAzureRepositoryName": {
+      "type": "parameter",
+      "datatype": "string",
+      "defaultValue": "IamAzure",
+      "description": "The repository name for IAM Azure project in pascal case (e.g., IamAzure)",
+      "replaces": "TIamAzureRepositoryName",
+      "fileRename": "TIamAzureRepositoryName"
+    },
+
+    "TMicroserviceInfrastructureRepositoryName": {
+      "type": "parameter",
+      "datatype": "string",
+      "defaultValue": "MicroserviceInfrastructure",
+      "description": "The repository name for MicroserviceInfrastructure project in pascal case (e.g., MicroserviceInfrastructure)",
+      "replaces": "TMicroserviceInfrastructureRepositoryName",
+      "fileRename": "TMicroserviceInfrastructureRepositoryName"
+    },
+    "TMicroserviceInfrastructureRepositoryGitLabPath": {
+      "type": "parameter",
+      "datatype": "string",
+      "defaultValue": "microservice-infrastructure",
+      "description": "The GitLab path for MicroserviceInfrastructure repository (e.g., microservice-infrastructure)",
+      "replaces": "TMicroserviceInfrastructureRepositoryGitLabPath"
+    },
+    
+    "TMicroserviceRepositoryName": {
+      "type": "parameter",
+      "datatype": "string",
+      "defaultValue": "Microservice",
+      "description": "The repository name for Microservice project in pascal case (e.g., Microservice)",
+      "replaces": "TMicroserviceRepositoryName",
+      "fileRename": "TMicroserviceRepositoryName"
+    },
+    "TMicroserviceRepositoryGitLabPath": {
+      "type": "parameter",
+      "datatype": "string",
+      "defaultValue": "containerization",
+      "description": "The GitLab path for Microservice repository (e.g., microservice)",
+      "replaces": "TMicroserviceRepositoryGitLabPath"
+    },
+    "TMicroserviceApplicationClientId": {
+      "type": "parameter",
+      "datatype": "string",
+      "description": "The Application Client Id for the Microservice project which also includes the MicroserviceInfrastructure project (e.g., 666152a8-7ce4-4199-80cf-57edf0adfad8)",
+      "replaces": "TMicroserviceApplicationClientId",
+      "fileRename": "TMicroserviceApplicationClientId",
+      "isRequired": true
+    },
+    
+    "TTenantId": {
+      "type": "parameter",
+      "datatype": "string",
+      "description": "The TenantId (eg., ec03e6c4-4895-4ca2-a6a4-e9dfca42d88a)",
+      "replaces": "TTenantId",
+      "isRequired": true
+    },
+    "TSubscriptionId": {
+      "type": "parameter",
+      "datatype": "string",
+      "description": "The Azure Subscription Id (eg., 6a5122a8-7ce4-4199-80cf-57edf0adfad8)",
+      "replaces": "TSubscriptionId",
+      "isRequired": true
+    },
+    "TLocation": {
+      "type": "parameter",
+      "datatype": "string",
+      "description": "The Azure location (eg., swedencentral)",
+      "replaces": "TLocation",
+      "isRequired": true
+    }
+  }
+}

@@ -1,0 +1,109 @@
+variables:
+  DOTNET_VERSION: "9.0"
+  SOLUTION_PATH: "Source/TMicroserviceRepositoryName.sln"
+  NUGET_SOURCE_GROUP: "TOrgPackageSourceValue"
+  NUGET_SOURCE_NAME_GROUP: "TOrgPackageSourceKey"
+  ARM_USE_OIDC: "true"
+  ARM_OIDC_TOKEN: "$GITLAB_OIDC_TOKEN"
+  ARM_CLIENT_ID: "TMicroserviceApplicationClientId"
+  ARM_TENANT_ID: "TTenantId"
+  IMAGE_TAG: "$CI_COMMIT_SHA"
+  
+default:
+  image: mcr.microsoft.com/dotnet/sdk:${DOTNET_VERSION}
+
+stages:
+  - build
+  - test
+  - publish
+  - create-mr
+
+build:
+  stage: build
+  script:
+    - dotnet nuget add source $NUGET_SOURCE_GROUP --name $NUGET_SOURCE_NAME_GROUP --username "gitlab-ci-token" --password $CI_JOB_TOKEN --store-password-in-clear-text
+    - dotnet restore $SOLUTION_PATH
+    - dotnet build $SOLUTION_PATH --no-restore -c Release
+  artifacts:
+    paths:
+      - Source/**/bin/Release
+    expire_in: 1 day
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH || $CI_PIPELINE_SOURCE == "merge_request_event"
+
+test:
+  stage: test
+  dependencies:
+    - build
+  script:
+    - dotnet test $SOLUTION_PATH --no-build -c Release
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH || $CI_PIPELINE_SOURCE == "merge_request_event"
+
+# Sidenote: this could be cleaner with a default custom base image which includes: .NET SDK, Azure CLI, Docker
+publish:
+  stage: publish
+  variables:
+    ACR_NAME_DEV: "TContainerRegistryName"
+    API_PROJECT_NAME: "TOrgName.TMicroserviceRepositoryName.Api"
+  image: docker:latest
+  services:
+    - docker:dind
+  id_tokens:
+    GITLAB_OIDC_TOKEN:
+      aud: api://AzureADTokenExchange
+  dependencies:
+    - build
+  before_script:
+    - apk add --no-cache curl bash unzip icu-libs
+    - curl -fsSL https://dot.net/v1/dotnet-install.sh -o dotnet-install.sh
+    - chmod +x dotnet-install.sh
+    - ./dotnet-install.sh --install-dir /usr/share/dotnet --channel $DOTNET_VERSION
+    - export DOTNET_ROOT=/usr/share/dotnet
+    - export PATH="$DOTNET_ROOT:$PATH"
+    - apk add --no-cache --update python3 py3-pip
+    - apk add --no-cache --update --virtual=build gcc musl-dev python3-dev libffi-dev openssl-dev cargo make
+    - python3 -m venv /opt/venv
+    - . /opt/venv/bin/activate
+    - pip install --no-cache-dir --prefer-binary azure-cli
+  script:
+    - az login --service-principal --username $ARM_CLIENT_ID --tenant $ARM_TENANT_ID --federated-token $ARM_OIDC_TOKEN --allow-no-subscriptions
+    - az acr login --name $ACR_NAME_DEV
+    - dotnet publish Source/$API_PROJECT_NAME/$API_PROJECT_NAME.csproj -c Release -p:ContainerImageTag=$IMAGE_TAG -p:ContainerRegistry="${ACR_NAME_DEV}.azurecr.io"
+  artifacts:
+    paths:
+      - Source/$API_PROJECT_NAME/bin/Release/net${DOTNET_VERSION}/linux-x64/publish
+    expire_in: 1 day
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH || $CI_PIPELINE_SOURCE == "merge_request_event"
+
+# The preferred $CI_JOB_TOKEN token does not have sufficient scopes (WIP: https://gitlab.com/groups/gitlab-org/-/epics/3559)
+# A paid workaround is a Project Access Token (https://docs.gitlab.com/17.5/user/project/settings/project_access_tokens/)
+# A free (and less secure) workaround is a Personal Access Token (https://docs.gitlab.com/17.5/user/profile/personal_access_tokens/)
+create-mr:
+  stage: create-mr
+  variables:
+    TARGET_URL: "https://gitlab.com/TOrgGitLabPath/TContainerizationDeploymentRepositoryGitLabPath"
+    TARGET_PROJECT_NAME: "TContainerizationDeploymentRepositoryGitLabPath"
+    TARGET_BRANCH_NAME: "update-image-tag-${IMAGE_TAG}"
+    TARGET_FILE_DEV: "Source/TOrgName.TContainerizationDeploymentRepositoryName.TMicroserviceRepositoryName/Pulumi.dev.yaml"
+  image:
+    name: "gitlab/glab"
+    entrypoint: [ "" ]
+  before_script:
+    - apk update && apk add git yq
+    - glab auth login --hostname gitlab.com --token $GITLAB_CONTAINERIZATIONDEPLOYMENT_PROJECT_ACCESS_TOKEN
+#    - glab auth login --hostname gitlab.com --job-token $CI_JOB_TOKEN # (Not supported yet unfortunately, read comments above)
+  script:
+    - git clone https://oauth2:${GITLAB_CONTAINERIZATIONDEPLOYMENT_PROJECT_ACCESS_TOKEN}@gitlab.com/TOrgGitLabPath/TContainerizationDeploymentRepositoryGitLabPath.git
+    - cd $TARGET_PROJECT_NAME
+    - git checkout -b $TARGET_BRANCH_NAME
+    - yq e '.config.imageTagApi = "'"${IMAGE_TAG}"'"' -i $TARGET_FILE_DEV
+    - git config user.email "gitlab-ci@TOrgGitLabPath.com"
+    - git config user.name "GitLabCI"
+    - git add "$TARGET_FILE_DEV"
+    - git commit -m "Update imageTagApi to ${IMAGE_TAG}"
+    - git push origin $TARGET_BRANCH_NAME
+    - glab mr create -s $TARGET_BRANCH_NAME -b main -t "Update imageTagApi to ${IMAGE_TAG}" -d "Automated MR. Updates imageTagApi to ${IMAGE_TAG}" --remove-source-branch
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH

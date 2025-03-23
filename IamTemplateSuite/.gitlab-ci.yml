@@ -1,0 +1,35 @@
+variables:
+  DOTNET_VERSION: "9.0"
+  PROJECT_PATH: "Hoolit.Templates.IamTemplateSuite.csproj"
+  NUGET_OUTPUT_PATH: "nupkg"
+
+default:
+  image: mcr.microsoft.com/dotnet/sdk:${DOTNET_VERSION}
+
+stages:
+  - build
+  - publish
+
+build:
+  stage: build
+  script:
+    - git fetch --prune --unshallow
+    - dotnet restore $PROJECT_PATH
+    - dotnet build $PROJECT_PATH --no-restore -c Release
+    - dotnet pack $PROJECT_PATH --no-build -c Release -o $NUGET_OUTPUT_PATH
+  artifacts:
+    paths:
+      - $NUGET_OUTPUT_PATH/*.nupkg
+    expire_in: 1 day
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH || $CI_PIPELINE_SOURCE == "merge_request_event"
+
+publish:
+  stage: publish
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+      when: manual
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+      when: on_success
+  script:
+    - dotnet nuget push $NUGET_OUTPUT_PATH/*.nupkg --api-key "$NUGET_API_KEY" --source "https://api.nuget.org/v3/index.json"

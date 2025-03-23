@@ -1,0 +1,42 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Config", "Config", "{CAE32B02-5EBF-4682-8B57-02F5B766C3D4}"
+	ProjectSection(SolutionItems) = preProject
+		Directory.Build.props = Directory.Build.props
+		Directory.Packages.props = Directory.Packages.props
+		nuget.config = nuget.config
+		.editorconfig = .editorconfig
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TOrgName.TIamAzureRepositoryName.Pulumi.Contract", "TOrgName.TIamAzureRepositoryName.Pulumi.Contract\TOrgName.TIamAzureRepositoryName.Pulumi.Contract.csproj", "{33272DE8-B65B-4CCF-8051-AA824657518F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TOrgName.TIamAzureRepositoryName.Pulumi", "TOrgName.TIamAzureRepositoryName.Pulumi\TOrgName.TIamAzureRepositoryName.Pulumi.csproj", "{D4ECF78A-AE70-4008-955F-83618ECEF317}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TOrgName.TIamAzureRepositoryName.Pulumi.Test", "TOrgName.TIamAzureRepositoryName.Pulumi.Test\TOrgName.TIamAzureRepositoryName.Pulumi.Test.csproj", "{4C835686-2F99-4879-8151-2D5848F38466}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TOrgName.TIamAzureRepositoryName.Pulumi.Initializer", "TOrgName.TIamAzureRepositoryName.Pulumi.Initializer\TOrgName.TIamAzureRepositoryName.Pulumi.Initializer.csproj", "{AA935563-BEA1-4F7E-9460-F4CF442A4F1E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{33272DE8-B65B-4CCF-8051-AA824657518F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{33272DE8-B65B-4CCF-8051-AA824657518F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{33272DE8-B65B-4CCF-8051-AA824657518F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{33272DE8-B65B-4CCF-8051-AA824657518F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D4ECF78A-AE70-4008-955F-83618ECEF317}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D4ECF78A-AE70-4008-955F-83618ECEF317}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D4ECF78A-AE70-4008-955F-83618ECEF317}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D4ECF78A-AE70-4008-955F-83618ECEF317}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4C835686-2F99-4879-8151-2D5848F38466}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4C835686-2F99-4879-8151-2D5848F38466}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4C835686-2F99-4879-8151-2D5848F38466}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4C835686-2F99-4879-8151-2D5848F38466}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AA935563-BEA1-4F7E-9460-F4CF442A4F1E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AA935563-BEA1-4F7E-9460-F4CF442A4F1E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AA935563-BEA1-4F7E-9460-F4CF442A4F1E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AA935563-BEA1-4F7E-9460-F4CF442A4F1E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

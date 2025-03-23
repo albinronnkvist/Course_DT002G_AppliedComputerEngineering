@@ -1,0 +1,83 @@
+variables:
+  DOTNET_VERSION: "9.0"
+  SOLUTION_PATH: "Source/TMicroserviceInfrastructureRepositoryName.sln"
+  NUGET_SOURCE_GROUP: "TOrgPackageSourceValue"
+  NUGET_SOURCE_NAME_GROUP: "TOrgPackageSourceKey"
+  ARM_USE_OIDC: "true"
+  ARM_OIDC_TOKEN: "$GITLAB_OIDC_TOKEN"
+  ARM_CLIENT_ID: "TMicroserviceApplicationClientId"
+  PULUMI_PROJECT_NAME: "TOrgName.TMicroserviceInfrastructureRepositoryName.Pulumi"
+  STACK_DEV: "dev"
+
+default:
+  image: mcr.microsoft.com/dotnet/sdk:${DOTNET_VERSION}
+
+stages:
+  - build
+  - test
+  - pulumi
+
+build:
+  stage: build
+  script:
+    - dotnet nuget add source $NUGET_SOURCE_GROUP --name $NUGET_SOURCE_NAME_GROUP --username "gitlab-ci-token" --password $CI_JOB_TOKEN --store-password-in-clear-text
+    - dotnet restore $SOLUTION_PATH
+    - dotnet build $SOLUTION_PATH --no-restore -c Release
+  artifacts:
+    paths:
+      - Source/**/bin/Release
+    expire_in: 1 day
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH || $CI_PIPELINE_SOURCE == "merge_request_event"
+
+# Hidden (https://docs.gitlab.com/ci/jobs/#hide-a-job) for now since there are no tests
+.test:
+  stage: test
+  dependencies:
+    - build
+  script:
+    - dotnet test $SOLUTION_PATH --no-build -c Release
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH || $CI_PIPELINE_SOURCE == "merge_request_event"
+
+pulumi_preview:
+  stage: pulumi
+  image:
+    name: pulumi/pulumi-dotnet-${DOTNET_VERSION}
+    entrypoint: [""]
+  id_tokens:
+    GITLAB_OIDC_TOKEN:
+      aud: api://AzureADTokenExchange
+  dependencies:
+    - build
+  script:
+    - dotnet nuget add source $NUGET_SOURCE_GROUP --name $NUGET_SOURCE_NAME_GROUP --username "gitlab-ci-token" --password $CI_JOB_TOKEN --store-password-in-clear-text
+    - cd Source/$PULUMI_PROJECT_NAME
+    - pulumi preview -s $STACK_DEV
+  artifacts:
+    paths:
+      - Source/$PULUMI_PROJECT_NAME/bin/Release/net${DOTNET_VERSION}/
+    expire_in: 1 day
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+
+pulumi_apply:
+  stage: pulumi
+  image:
+    name: pulumi/pulumi-dotnet-${DOTNET_VERSION}
+    entrypoint: [""]
+  id_tokens:
+    GITLAB_OIDC_TOKEN:
+      aud: api://AzureADTokenExchange
+  dependencies:
+    - build
+  script:
+    - dotnet nuget add source $NUGET_SOURCE_GROUP --name $NUGET_SOURCE_NAME_GROUP --username "gitlab-ci-token" --password $CI_JOB_TOKEN --store-password-in-clear-text
+    - cd Source/$PULUMI_PROJECT_NAME
+    - pulumi up -r -f -s $STACK_DEV -y
+  artifacts:
+    paths:
+      - Source/$PULUMI_PROJECT_NAME/bin/Release/net${DOTNET_VERSION}/
+    expire_in: 1 day
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH

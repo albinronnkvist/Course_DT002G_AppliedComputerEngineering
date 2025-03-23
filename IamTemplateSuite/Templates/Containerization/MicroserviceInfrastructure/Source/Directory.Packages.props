@@ -1,0 +1,11 @@
+<Project>
+  <PropertyGroup>
+    <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
+    <CentralPackageFloatingVersionsEnabled>true</CentralPackageFloatingVersionsEnabled>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageVersion Include="TOrgName.TIamAzureRepositoryName.Pulumi.Contract" Version="*-*" />
+    <PackageVersion Include="TOrgName.TIamEntraIdRepositoryName.Pulumi.Contract" Version="*-*" />
+    <PackageVersion Include="TOrgName.TPlatformPulumiAzureRepositoryName.Core" Version="*-*" />
+  </ItemGroup>
+</Project>

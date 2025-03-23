@@ -1,0 +1,10 @@
+name: TMicroserviceRepositoryNameDeployment
+description: Deployments for ExampleMicroservice microservice
+runtime:
+  name: dotnet
+  options:
+    binary: bin/Release/net9.0/TOrgName.TContainerizationDeploymentRepositoryName.TMicroserviceRepositoryName.dll
+config:
+  pulumi:autonaming:
+    value:
+      pattern: ${project}-${stack}-${name}-${hex(6)}

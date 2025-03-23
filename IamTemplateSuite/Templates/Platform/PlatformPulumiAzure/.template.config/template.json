@@ -1,0 +1,81 @@
+{
+  "$schema": "http://json.schemastore.org/template",
+  "author": "Hoolit",
+  "classifications": ["Common", "Library"],
+  "identity": "Hoolit.PlatformPulumiAzure",
+  "name": "Platform Pulumi Azure",
+  "shortName": "platform-pulumi-azure",
+  "tags": {
+    "language": "C#",
+    "type": "project"
+  },
+  "preferNameDirectory": false,
+  "symbols": {
+    "DefaultFalse": {
+      "type": "parameter",
+      "datatype": "bool",
+      "defaultValue": "false",
+      "description": "Include template development configuration"
+    },
+    "TOrgName": {
+      "type": "parameter",
+      "datatype": "string",
+      "description": "The organization name (e.g., Acme)",
+      "replaces": "TOrgName",
+      "fileRename": "TOrgName",
+      "isRequired": true
+    },
+    "TOrgGitLabPath": {
+      "type": "parameter",
+      "datatype": "string",
+      "description": "The GitLab group path for the organization (e.g., acme-group)",
+      "replaces": "TOrgGitLabPath",
+      "isRequired": true
+    },
+    "TOrgPackageSourceKey": {
+      "type": "parameter",
+      "datatype": "string",
+      "description": "The key name for the private Group NuGet feed (e.g., acme.com)",
+      "replaces": "TOrgPackageSourceKey",
+      "isRequired": true
+    },
+    "TOrgPackageSourceValue": {
+      "type": "parameter",
+      "datatype": "string",
+      "description": "The URL to the private Group NuGet feed (e.g., https://gitlab.com/api/v4/groups/111111111/-/packages/nuget/index.json)",
+      "replaces": "TOrgPackageSourceValue",
+      "fileRename": "TOrgPackageSourceValue",
+      "isRequired": true
+    },
+    "TPlatformPulumiRepositoryName": {
+      "type": "parameter",
+      "datatype": "string",
+      "defaultValue": "PlatformPulumi",
+      "description": "The repository name for the Platform Pulumi project in pascal case (e.g., PlatformPulumi)",
+      "replaces": "TPlatformPulumiRepositoryName",
+      "fileRename": "TPlatformPulumiRepositoryName"
+    },
+    "TPlatformPulumiAzureRepositoryName": {
+      "type": "parameter",
+      "datatype": "string",
+      "defaultValue": "PlatformPulumiAzure",
+      "description": "The repository name for the Platform Pulumi Azure project in pascal case (e.g., PlatformPulumiAzure)",
+      "replaces": "TPlatformPulumiAzureRepositoryName",
+      "fileRename": "TPlatformPulumiAzureRepositoryName"
+    },
+    "TPlatformPulumiAzureRepositoryGitLabPath": {
+      "type": "parameter",
+      "datatype": "string",
+      "defaultValue": "platform-pulumi-azure",
+      "description": "The GitLab path for the Platform Pulumi project repository (e.g., platform-pulumi-azure)",
+      "replaces": "TPlatformPulumiAzureRepositoryGitLabPath"
+    },
+    "TProjectPackageSourceValue": {
+      "type": "parameter",
+      "datatype": "string",
+      "description": "The URL to the private Project NuGet feed (e.g., https://gitlab.com/api/v4/projects/111111113/-/packages/nuget/index.json)",
+      "replaces": "TProjectPackageSourceValue",
+      "isRequired": true
+    }
+  }
+}
